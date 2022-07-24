@@ -21,23 +21,21 @@ model User {
 model Post{
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
   title     String
   content   String
   author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int      @unique
+  authorId  Int
   comments  Comment[]
 }
 
 model Comment {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
   text      String
   author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int      @unique
+  authorId  Int
   post      Post     @relation(fields: [postId], references: [id])
-  postId    Int      @unique
+  postId    Int
 }
 
 enum AccountType {

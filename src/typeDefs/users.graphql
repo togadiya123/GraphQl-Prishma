@@ -1,8 +1,9 @@
 type User {
     id: ID!
     name: String!
+    username: String!
     email: String!
-    age: Int
+    accountType: AccountType!
     posts: [Post!]!
     comments: [Comment!]!
 }

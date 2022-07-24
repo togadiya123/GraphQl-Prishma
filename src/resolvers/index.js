@@ -1,3 +1,9 @@
 import Query from "./Query.js";
+import Mutation from "./Mutation/index.js";
 
-export { Query };
+const resolvers = {
+    Query,
+    Mutation
+};
+
+export default resolvers;

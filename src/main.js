@@ -1,18 +1,24 @@
-const { PrismaClient } = require('@prisma/client')
+import {createServer} from '@graphql-yoga/node';
+import {loadFiles} from "@graphql-tools/load-files";
 
-const prisma = new PrismaClient()
+import {Query} from './resolvers/index.js';
 
-const createUser = async () => {
-    const newUser = await prisma.user.create({
-        data: {
-            name: 'Alice',
-            email: `alice${Date.now()}@prisma.io`,
-        },
-    });
-    console.log(newUser);
-    return newUser;
+const main = async () => {
+    try {
+        const server = new createServer({
+            schema: {
+                typeDefs: await loadFiles('src/typeDefs/**/*.graphql'),
+                resolvers: {
+                    Query,
+                }, context: {}
+            },
+        });
+
+        await server.start();
+
+    } catch (error) {
+        console.log(`Error got in main.js\n ${error}`);
+    }
 };
 
-const getUsers = async () => await prisma.user.findMany();
-
-createUser().then(() => getUsers().then(users => console.log(users)))
+main().catch(error => console.log(error));

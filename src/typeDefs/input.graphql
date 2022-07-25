@@ -1,0 +1,17 @@
+input CreateUserInput {
+    username: String!
+    name: String!
+    email: String!
+}
+
+input CreatePostInput {
+    title: String!
+    content: String!
+    authorId: ID!
+}
+
+input CreateCommentInput {
+    text: String!
+    authorId: ID!
+    postId: ID!
+}

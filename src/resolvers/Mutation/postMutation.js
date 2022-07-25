@@ -1,19 +1,14 @@
-import {PrismaClient} from '@prisma/client';
-
-const prisma = new PrismaClient();
-
 const postMutation = {
-    createPost: async (parent, {data}, context, info) => {
-        console.log({data});
+    createPost: async (parent, {data}, {prisma}, info) => {
         const {title, content, authorId} = data;
-        try {
-            const post = await prisma.post.create({data : {title, content, author: {connect: {id: authorId}}}});
-        // return await prisma.post.create({data: {title, content, authorId}});
-            console.log(post);
-            return post;
-        } catch (error) {
-            console.log(error);
-        }
+        return await prisma.post.create({
+            data: {title, content, author: {connect: {id: parseInt(authorId)}}}, include: {
+                author: true, comments: true
+            }
+        }).catch(err => {
+            console.log(err);
+            return null;
+        });
     }
 }
 

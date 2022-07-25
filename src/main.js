@@ -9,9 +9,8 @@ const main = async () => {
         const prisma = new PrismaClient();
         const server = new createServer({
             schema: {
-                typeDefs: await loadFiles('src/typeDefs/**/*.graphql'),
-                resolvers, context: {prisma}
-            },
+                typeDefs: await loadFiles('src/typeDefs/**/*.graphql'), resolvers,
+            }, context: {prisma}
         });
         await server.start();
     } catch (error) {

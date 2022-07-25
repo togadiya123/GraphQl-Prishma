@@ -7,5 +7,11 @@ input CreateUserInput {
 input CreatePostInput {
     title: String!
     content: String!
-    authorId: Int!
+    authorId: ID!
+}
+
+input CreateCommentInput {
+    text: String!
+    authorId: ID!
+    postId: ID!
 }

@@ -6,14 +6,13 @@ import resolvers from './resolvers/index.js';
 
 const main = async () => {
     try {
-        console.log("Starting server...");
         const prisma = new PrismaClient();
         const server = new createServer({
             schema: {
                 typeDefs: await loadFiles('src/typeDefs/**/*.graphql'), resolvers,
             }, context: {prisma}
         });
-        await server.start().then(() => {console.log("Server started!")});
+        await server.start();
     } catch (error) {
         console.log(`Error got in main.js\n ${error}`);
     }
